@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\shravan.potla\\OneDrive - Acuvate Software Private Limited\\Desktop\\AcuPay\\AcuPay\\AcuPay.csproj": {}
+    "C:\\Users\\varshini.anumalla\\OneDrive - Acuvate Software Private Limited\\Desktop\\Acupay_project\\Acupay_team3\\AcuPay\\AcuPay.csproj": {}
   },
   "projects": {
-    "C:\\Users\\shravan.potla\\OneDrive - Acuvate Software Private Limited\\Desktop\\AcuPay\\AcuPay\\AcuPay.csproj": {
+    "C:\\Users\\varshini.anumalla\\OneDrive - Acuvate Software Private Limited\\Desktop\\Acupay_project\\Acupay_team3\\AcuPay\\AcuPay.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\shravan.potla\\OneDrive - Acuvate Software Private Limited\\Desktop\\AcuPay\\AcuPay\\AcuPay.csproj",
+        "projectUniqueName": "C:\\Users\\varshini.anumalla\\OneDrive - Acuvate Software Private Limited\\Desktop\\Acupay_project\\Acupay_team3\\AcuPay\\AcuPay.csproj",
         "projectName": "AcuPay",
-        "projectPath": "C:\\Users\\shravan.potla\\OneDrive - Acuvate Software Private Limited\\Desktop\\AcuPay\\AcuPay\\AcuPay.csproj",
-        "packagesPath": "C:\\Users\\shravan.potla\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\shravan.potla\\OneDrive - Acuvate Software Private Limited\\Desktop\\AcuPay\\AcuPay\\obj\\",
+        "projectPath": "C:\\Users\\varshini.anumalla\\OneDrive - Acuvate Software Private Limited\\Desktop\\Acupay_project\\Acupay_team3\\AcuPay\\AcuPay.csproj",
+        "packagesPath": "C:\\Users\\varshini.anumalla\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\varshini.anumalla\\OneDrive - Acuvate Software Private Limited\\Desktop\\Acupay_project\\Acupay_team3\\AcuPay\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\shravan.potla\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\varshini.anumalla\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -49,6 +49,18 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[10.0.12, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[10.0.12, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[10.3.1, )"
             }
           },
           "imports": [
