@@ -1,5 +1,5 @@
 using Microsoft.Data.SqlClient;
-
+using Microsoft.Extensions.Configuration;
 namespace AcuPay.Data
 {
    public class DbConnectionFactory

@@ -1,26 +1,42 @@
+
 using AcuPay.Data;
+using AcuPay.Repositories;
+using AcuPay.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEndpointsApiExplorer();
 
-//Regsitering DbConnectionFactory
+// Register database connection factory
 builder.Services.AddScoped<DbConnectionFactory>();
+
+// Register repositories
+builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
+
+// Register invoice matching service
+builder.Services.AddScoped<InvoiceMatchingService>(provider =>
+{
+    return new InvoiceMatchingService(
+        5.0m,
+        provider.GetRequiredService<IInvoiceRepository>(),
+        provider.GetRequiredService<IPurchaseOrderRepository>()
+    );
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapSwagger();
-    app.MapSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
