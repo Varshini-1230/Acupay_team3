@@ -1,8 +1,10 @@
-using Microsoft.Data.SqlClient;
+
 using Microsoft.Extensions.Configuration;
+using Npgsql;
+
 namespace AcuPay.Data
 {
-   public class DbConnectionFactory
+    public class DbConnectionFactory
     {
         private readonly IConfiguration _configuration;
 
@@ -11,11 +13,18 @@ namespace AcuPay.Data
             _configuration = configuration;
         }
 
-        public SqlConnection CreateConnection()
+        public NpgsqlConnection CreateConnection()
         {
-            string connectionString = _configuration.GetConnectionString("DefaultConnection")!;
+            string? connectionString =
+                _configuration.GetConnectionString("DefaultConnection");
 
-            return new SqlConnection(connectionString);
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "Database connection string not found.");
+            }
+
+            return new NpgsqlConnection(connectionString);
         }
-    } 
+    }
 }
