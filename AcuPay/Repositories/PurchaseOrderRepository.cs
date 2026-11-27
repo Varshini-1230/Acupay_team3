@@ -1,8 +1,9 @@
+
 using System;
 using System.Threading.Tasks;
 using AcuPay.Data;
 using AcuPay.Models;
-using Microsoft.Data.SqlClient;
+using Npgsql;
 
 namespace AcuPay.Repositories
 {
@@ -17,8 +18,7 @@ namespace AcuPay.Repositories
 
         public async Task<PurchaseOrder?> GetPurchaseOrderByIdAsync(int poId)
         {
-            using SqlConnection connection = _factory.CreateConnection();
-
+            using NpgsqlConnection connection = _factory.CreateConnection();
             await connection.OpenAsync();
 
             string query = @"
@@ -27,11 +27,12 @@ namespace AcuPay.Repositories
                 WHERE PoId = @PoId;
             ";
 
-            using SqlCommand command = new SqlCommand(query, connection);
+            using NpgsqlCommand command = new NpgsqlCommand(query, connection);
 
-            command.Parameters.AddWithValue("@PoId", poId);
+            command.Parameters.AddWithValue("PoId", poId);
 
-            using SqlDataReader reader = await command.ExecuteReaderAsync();
+            using NpgsqlDataReader reader =
+                await command.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {

@@ -5,12 +5,12 @@ using AcuPay.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Register controllers
 builder.Services.AddControllers();
 
-builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
+// Register Swagger
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // Register database connection factory
 builder.Services.AddScoped<DbConnectionFactory>();
@@ -19,14 +19,25 @@ builder.Services.AddScoped<DbConnectionFactory>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IPurchaseOrderRepository, PurchaseOrderRepository>();
 
-// Register invoice matching service
+// Register Invoice Matching Service
 builder.Services.AddScoped<InvoiceMatchingService>(provider =>
 {
+    var invoiceRepository =
+        provider.GetRequiredService<IInvoiceRepository>();
+
+    var purchaseOrderRepository =
+        provider.GetRequiredService<IPurchaseOrderRepository>();
+
+    var configuration =
+        provider.GetRequiredService<IConfiguration>();
+
+    decimal tolerance = configuration.GetValue<decimal>(
+        "InvoiceMatching:TolerancePercentage");
+
     return new InvoiceMatchingService(
-        5.0m,
-        provider.GetRequiredService<IInvoiceRepository>(),
-        provider.GetRequiredService<IPurchaseOrderRepository>()
-    );
+        tolerance,
+        invoiceRepository,
+        purchaseOrderRepository);
 });
 
 var app = builder.Build();
@@ -34,7 +45,6 @@ var app = builder.Build();
 // Configure HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
